@@ -15,14 +15,13 @@ let boardSizeY = cellSize * 10;
 snakeboard.width = boardSizeX;
 snakeboard.height = boardSizeY;
 
-let snakeSpeed = 150;
+let snakeSpeed = 250;
 
 let snake = [  
     {x: boardSizeX / 2, y: boardSizeY / 2},  
     {x: boardSizeX / 2 - cellSize, y: boardSizeY / 2},  
     {x: boardSizeX / 2 -cellSize*2, y: boardSizeY / 2},  
     {x: boardSizeX / 2 -cellSize*3, y: boardSizeY / 2},  
-    {x: boardSizeX / 2 -cellSize*4, y: boardSizeY / 2},  
 ];
 
 let changingDirection = false;
@@ -32,9 +31,50 @@ let keyBacklog = 0;
 let xVel = cellSize;
 let yVel = 0;
 
+let currentGamemode = "Normal";
 
-main();
-generateFood();
+document.getElementById('current-gamemode').innerHTML = currentGamemode;
+
+function gamemodeEasier() {
+    if(currentGamemode == "Normal") {
+        currentGamemode = "Easy"; 
+    }
+    else if(currentGamemode == "Easy") {
+        currentGamemode = "Hard"; 
+    }
+    else if(currentGamemode == "Hard") {
+        currentGamemode = "Normal";   
+    }
+    document.getElementById('current-gamemode').innerHTML = currentGamemode;
+}
+
+function gamemodeHarder() {
+    if(currentGamemode == "Normal") {
+        currentGamemode = "Hard"; 
+    }
+    else if(currentGamemode == "Hard") {
+        currentGamemode = "Easy"; 
+    }
+    else if(currentGamemode == "Easy") {
+        currentGamemode = "Normal";   
+    }
+    document.getElementById('current-gamemode').innerHTML = currentGamemode;
+}
+
+function startGame() {
+    if(currentGamemode == "Easy") {
+        snakeSpeed = 220
+    }
+    else if(currentGamemode == "Normal") {
+        snakeSpeed = 150;
+    }
+    else if(currentGamemode == "Hard") {
+        snakeSpeed = 80;
+    }
+    main();
+    generateFood();
+}
+
 
 document.addEventListener("keydown", changeDirection);
 
