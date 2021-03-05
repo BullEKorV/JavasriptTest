@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <script defer src="script.js"></script>
-  </head>
 
-  <body>
-    <div id="gameContainer">
-      <div id="score">0</div>
-      <canvas id="gameCanvas"></canvas>
-    </div>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <script defer src="script.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="game-container">
+    <div id="score">0</div>
+    <canvas id="gameCanvas"></canvas>
+  </div>
+  <div id="gamemode-selector">
+    <button id="left-button" onclick="gamemodeEasier()">left</button>
+    <div id="current-gamemode" onclick="startGame()">Normal</div>
+    <button id="right-button" onclick="gamemodeHarder()">right</button>
+  </div>
+</body>
+
 </html>

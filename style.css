@@ -1,0 +1,13 @@
+html{
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    margin:  0;
+}
+
+.gamemode-selector {
+    display:flex;
+    flex-direction: column;
+}
