@@ -5,9 +5,47 @@ html{
 
 body {
     margin:  0;
+    height: 100vh;
+    background-color: #E8EBE4;
 }
 
 .gamemode-selector {
+    margin: 1.5vh;
     display:flex;
+    justify-content: center;
+}
+
+.game-container {
+    display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 80%;
+}
+
+button{
+    height: 10%;
+    background-color: #4CAF50; 
+    border: none;
+    color: white;
+    padding: 0.5vh 2.5vh;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 26px;
+}
+
+#score {
+    font-size: 3vh;
+    font-family: 'DotGothic16', sans-serif;
+}
+
+#current-gamemode {
+    align-self: center;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-flow: column;
 }

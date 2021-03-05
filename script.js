@@ -1,9 +1,3 @@
-//colors
-const board_border = 'black';
-const board_background = "white";
-const snake_col = 'lightblue';
-const snake_border = 'darkblue';
-
 const snakeboard = document.getElementById("gameCanvas");
 const snakeboard_ctx = gameCanvas.getContext("2d");
 
@@ -93,8 +87,8 @@ function main() {
     }, snakeSpeed)
 }
 function clearCanvas() {
-    snakeboard_ctx.fillStyle = board_background;
-    snakeboard_ctx.strokestyle = board_border;
+    snakeboard_ctx.fillStyle = 'white';
+    snakeboard_ctx.strokestyle = 'black';
     snakeboard_ctx.fillRect(0, 0, boardSizeX, boardSizeY);
     snakeboard_ctx.strokeRect(0, 0, boardSizeX, boardSizeY);
 }
