@@ -9,10 +9,11 @@ body {
     background-color: #E8EBE4;
 }
 
-.gamemode-selector {
+#gamemode-selector { 
     margin: 1.5vh;
     display:flex;
     justify-content: center;
+    
 }
 
 .game-container {
@@ -34,6 +35,8 @@ button{
     text-decoration: none;
     display: inline-block;
     font-size: 26px;
+    margin-left: 2vh;
+    margin-right: 2vh;
 }
 
 #score {
@@ -45,7 +48,8 @@ button{
     align-self: center;
 }
 
-.menu-buttons {
-    display: flex;
-    flex-flow: column;
+#menu-buttons {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
 }

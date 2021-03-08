@@ -9,18 +9,18 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body onload="clearCanvas()">
+<body onload="ClearCanvas()">
   <div class=" game-container">
     <div id="score">0</div>
     <canvas id="gameCanvas"></canvas>
   </div>
-  <div class="menu-buttons">
-    <div class="gamemode-selector">
-      <button id="left-button" onclick="gamemodeEasier()">&laquo;</button>
+  <div id="menu-buttons">
+    <div id="gamemode-selector">
+      <button id="left-button" onclick="GamemodeEasier()">&laquo;</button>
       <div id="current-gamemode">Normal</div>
-      <button id="right-button" onclick="gamemodeHarder()">&raquo;</button>
+      <button id="right-button" onclick="GamemodeHarder()">&raquo;</button>
     </div>
-    <button id="start-game" onclick="startGame()">Play</button>
+    <button id="start-game" onclick="StartGame()">Play</button>
   </div>
 </body>
 

@@ -5,7 +5,7 @@ const snakeboard_ctx = gameCanvas.getContext("2d");
 let score = 0;
 
 let cellSize = 70;
-let boardSizeX = cellSize * 10;
+let boardSizeX = cellSize * 16;
 let boardSizeY = cellSize * 10;
 snakeboard.width = boardSizeX;
 snakeboard.height = boardSizeY;
@@ -30,7 +30,7 @@ let currentGamemode = "Normal";
 
 document.getElementById('current-gamemode').innerHTML = currentGamemode;
 
-function gamemodeEasier() {
+function GamemodeEasier() {
     if (currentGamemode == "Normal") {
         currentGamemode = "Easy";
     }
@@ -44,7 +44,7 @@ function gamemodeEasier() {
 }
 
 
-function gamemodeHarder() {
+function GamemodeHarder() {
     if (currentGamemode == "Normal") {
         currentGamemode = "Hard";
     }
@@ -57,7 +57,21 @@ function gamemodeHarder() {
     document.getElementById('current-gamemode').innerHTML = currentGamemode;
 }
 
-function startGame() {
+function StartGame() {
+    var buttons = document.getElementById("menu-buttons");
+    buttons.style.display = "none";
+
+    snake = [
+        { x: boardSizeX / 2, y: boardSizeY / 2 },
+        { x: boardSizeX / 2 - cellSize, y: boardSizeY / 2 },
+        { x: boardSizeX / 2 - cellSize * 2, y: boardSizeY / 2 },
+        { x: boardSizeX / 2 - cellSize * 3, y: boardSizeY / 2 },
+    ];
+    score = 0;
+    document.getElementById('score').innerHTML = score;
+    xVel = cellSize;
+    yVel = 0;
+
     if (currentGamemode == "Easy") {
         snakeSpeed = 220
     }
@@ -67,33 +81,36 @@ function startGame() {
     else if (currentGamemode == "Hard") {
         snakeSpeed = 80;
     }
-    main();
-    generateFood();
+    Main();
+    GenerateFood();
 }
 
 
-document.addEventListener("keydown", changeDirection);
+document.addEventListener("keydown", ChangeDirection);
 
-function main() {
-    if (checkCollision()) return;
+function Main() {
+    if (CheckCollision()) {
+        SnakeDied();
+        return;
+    }
     changingDirection = false;
     setTimeout(function onTick() {
-        if (keyBacklog != 0) changeDirection();
-        clearCanvas();
-        drawFood();
-        moveSnake();
-        drawSnake();
-        main();
+        if (keyBacklog != 0) ChangeDirection();
+        ClearCanvas();
+        DrawFood();
+        MoveSnake();
+        DrawSnake();
+        Main();
     }, snakeSpeed)
 }
-function clearCanvas() {
+function ClearCanvas() {
     snakeboard_ctx.fillStyle = 'white';
     snakeboard_ctx.strokestyle = 'black';
     snakeboard_ctx.fillRect(0, 0, boardSizeX, boardSizeY);
     snakeboard_ctx.strokeRect(0, 0, boardSizeX, boardSizeY);
 }
 
-function drawSnake() {
+function DrawSnake() {
     const headSize = 0.6;
     const snakeSize = 0.5;
 
@@ -160,14 +177,14 @@ function drawSnake() {
     }
 }
 
-function moveSnake() {
+function MoveSnake() {
     const head = { x: snake[0].x + xVel, y: snake[0].y + yVel };
     snake.unshift(head);
-    checkCollision();
+    CheckCollision();
 
     const hasEatenFood = snake[0].x === foodX && snake[0].y === foodY;
     if (hasEatenFood) {
-        generateFood();
+        GenerateFood();
         score++;
         document.getElementById('score').innerHTML = score;
 
@@ -176,7 +193,7 @@ function moveSnake() {
     }
 }
 
-function checkCollision() {
+function CheckCollision() {
     for (let i = 4; i < snake.length; i++) {
         if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true;
     }
@@ -190,7 +207,7 @@ function checkCollision() {
     return false;
 }
 
-function changeDirection(event) {
+function ChangeDirection(event) {
     let keyPressed;
     if (event) {
         keyPressed = event.keyCode;
@@ -203,9 +220,10 @@ function changeDirection(event) {
     }
     changingDirection = true;
     keyBacklog = 0;
-    updateDirection(keyPressed);
+    UpdateDirection(keyPressed);
 }
-function updateDirection(keyPressed) {
+
+function UpdateDirection(keyPressed) {
     const LEFT_KEY = 37;
     const RIGHT_KEY = 39;
     const UP_KEY = 38;
@@ -228,22 +246,33 @@ function updateDirection(keyPressed) {
     }
 }
 
-function randomCords(min, max) {
+function RandomCords(min, max) {
     return Math.round((Math.random() * (max - min) + min) / cellSize) * cellSize;
 }
-function generateFood() {
-    foodX = randomCords(0, boardSizeX - cellSize);
-    foodY = randomCords(0, boardSizeY - cellSize);
-    snake.forEach(function isOverlapping(part) {
+function GenerateFood() {
+    foodX = RandomCords(0, boardSizeX - cellSize);
+    foodY = RandomCords(0, boardSizeY - cellSize);
+    snake.forEach(function IsOverlapping(part) {
         const overlapping = part.x == foodX && part.y == foodY;
-        if (overlapping) generateFood();
+        if (overlapping) GenerateFood();
     });
 }
 
-function drawFood() {
+function DrawFood() {
     const foodSize = 0.4;
-    snakeboard_ctx.fillStyle = 'lightgreen';
-    snakeboard_ctx.strokestyle = 'darkgreen';
+    snakeboard_ctx.fillStyle = 'red';
+    snakeboard_ctx.strokestyle = 'red';
     snakeboard_ctx.fillRect(foodX + (cellSize - (cellSize * foodSize)) * 0.5, foodY + (cellSize - (cellSize * foodSize)) * 0.5, cellSize * foodSize, cellSize * foodSize);
     snakeboard_ctx.strokeRect(foodX + (cellSize - (cellSize * foodSize)) * 0.5, foodY + (cellSize - (cellSize * foodSize)) * 0.5, cellSize * foodSize, cellSize * foodSize);
+}
+
+function SnakeDied() {
+    var buttons = document.getElementById("menu-buttons");
+    buttons.style.display = "flex";
+
+    snakeboard_ctx.font = "50px Arial";
+    snakeboard_ctx.fillStyle = 'black';
+    snakeboard_ctx.strokestyle = 'black';
+    snakeboard_ctx.fillText("Game over!", 20, 60);
+    snakeboard_ctx.fillText("Press \"Play\" to play again", 20, 120);
 }
