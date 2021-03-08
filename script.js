@@ -111,10 +111,10 @@ function ClearCanvas() {
 }
 
 function DrawSnake() {
-    const headSize = 0.6;
+    const headSize = 0.65;
     const snakeSize = 0.5;
 
-    snakeboard_ctx.fillStyle = 'lightgreen';
+    snakeboard_ctx.fillStyle = 'green';
     snakeboard_ctx.strokestyle = 'black';
     snakeboard_ctx.fillRect(snake[0].x + (cellSize - (cellSize * headSize)) * 0.5, snake[0].y + (cellSize - (cellSize * headSize)) * 0.5, cellSize * headSize, cellSize * headSize);
     //snakeboard_ctx.strokeRect(snake[0].x + (cellSize - (cellSize * headSize)) * 0.5 , snake[0].y + (cellSize - (cellSize * headSize)) * 0.5, cellSize * headSize, cellSize * headSize);
@@ -124,7 +124,7 @@ function DrawSnake() {
         let yCord = snake[i].y + (cellSize - (cellSize * snakeSize)) * 0.5;
         let width = cellSize * snakeSize;
         let height = cellSize * snakeSize;
-        snakeboard_ctx.fillStyle = 'lightgreen';
+        snakeboard_ctx.fillStyle = 'green';
         if (i > 0) {
             if (snake[i].x < snake[i - 1].x) {
                 width = (cellSize - (cellSize * snakeSize)) * 0.5 + cellSize * snakeSize;
